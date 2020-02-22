@@ -11,7 +11,7 @@ namespace ZorgAppOop
         private — a private member can only be accessed by code in the same class
         */
 
-        //fields camal case
+        //fields camel case
         //private string voorNaam;
         //private string achterNaam;
         //private int leeftijd;
