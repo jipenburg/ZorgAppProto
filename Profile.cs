@@ -27,32 +27,48 @@ namespace ZorgAppOop
 
         //properties pascal case. default op public
         //slaat inkomende variabels op in een field(Set) of haalt ze op uit een field(Get). get - public set - private
-        public string VoorNaam { get; private set; }
-        public string AchterNaam { get; private set; }
-        public int Leeftijd { get; private set; }
-        public double Gewicht { get; private set; }
-        public double Lengte { get; private set; }
+        private int id;
+        private string voornaam;
+        private string achternaam;
+        private int leeftijd;
+        private double gewicht;
+        private double lengte;
 
         //constructor
         public Profile()
         {
-            
+
         }
-        public Profile(string inputVoorNaam, string inputAchterNaam)
+        public Profile(int inputId, string inputVoorNaam, string inputAchterNaam)
         {
-            VoorNaam = inputVoorNaam;
-            AchterNaam = inputAchterNaam;
+            id = inputId;
+            voornaam = inputVoorNaam;
+            achternaam = inputAchterNaam;
         }
-        public Profile(string inputVoorNaam, string inputAchterNaam, int inputLeeftijd, double inputGewicht, double inputLengte)
+        public Profile(int inputId, string inputVoornaam, string inputAchternaam, int inputLeeftijd, double inputGewicht, double inputLengte)
         {
-            VoorNaam = inputVoorNaam;
-            AchterNaam = inputAchterNaam;
-            Leeftijd = inputLeeftijd;
-            Gewicht = inputGewicht;
-            Lengte = inputLengte;
+            id = inputId;
+            voornaam = inputVoornaam;
+            achternaam = inputAchternaam;
+            leeftijd = inputLeeftijd;
+            gewicht = inputGewicht;
+            lengte = inputLengte;
         }
 
         //methods
-
+        //getters lambda expression
+        public int GetId() => id;
+        public string GetVoornaam() => voornaam;
+        public string GetAchternaam() => achternaam;
+        public int GetLeeftijd() => leeftijd;
+        public double GetGewicht() => gewicht;
+        public double GetLengte() => lengte;
+        //setters lambda expression
+        public void SetId(int inputId) => id = inputId;
+        public void SetVoornaam(string inputVoornaam) => voornaam = inputVoornaam;
+        public void SetAchternaam(string inputAchternaam) => achternaam = inputAchternaam;
+        public void SetLeeftijd(int inputLeeftijd) => leeftijd = inputLeeftijd;
+        public void SetGewicht(double inputGewicht) => gewicht = inputGewicht;
+        public void SetLengte(double inputLengte) => lengte = inputLengte;
     }
 }
