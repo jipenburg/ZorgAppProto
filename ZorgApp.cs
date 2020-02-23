@@ -20,35 +20,86 @@ namespace ZorgAppOop
         }
         
         //methods
-        public void BewerkenPatient()
+        //check in List met foreach zoekend op id match en change de data
+        public void EditPatient(int editId)
         {
-           
+            
+            Console.WriteLine("Wat wil je bewerken? (1, 2, 3, 4, 5)");
+            string choice = Console.ReadLine();
+
+
+
+            //profileList.profileList = List<Profile>
+            //var value = Profile
+            foreach (var value in profileList.profileList)
+            {
+                if (value.GetId() == editId) 
+                {
+                    switch (choice)
+                    {
+                        case "1":
+                            value.SetVoornaam(Console.ReadLine());
+                        break;
+                        case "2":
+                            value.SetAchternaam(Console.ReadLine());
+                            break;
+                        case "3":
+                            value.SetLeeftijd(Convert.ToInt32(Console.ReadLine()));
+                            break;
+                        case "4":
+                            value.SetGewicht(Convert.ToDouble(Console.ReadLine()));
+                            break;
+                        case "5":
+                            value.SetLengte(Convert.ToDouble(Console.ReadLine()));
+                            break;
+                    }
+                }
+
+            }
+            DisplayMenu();
         }
+
         public void DisplayMenu()
         {
+            Menu:
+            Console.Clear();
             Console.WriteLine("Welkom in het menu");
-            Console.WriteLine($"Maak een keuze: \n1) Zoeken patient. \n2) Bewerken patientgegevens.");
-            var keuze = Console.ReadLine();
-            if (keuze == "1")
+            Console.WriteLine($"Maak een keuze: \n1)Zoeken en bewerken patientgegevens.");
+            var choice = Console.ReadLine();
+            if (choice == "1")
             {
                 Console.Clear();
                 Console.WriteLine("Zoek op:");
                 var searchValue = Console.ReadLine();
                 var match = SearchPatient(searchValue, out Profile classTypeOut);
-                if (match == true) 
+                if (match == true)
                 {
                     Console.Clear();
                     Console.WriteLine(ProfileToString(classTypeOut));
-
+                    Console.WriteLine("Wat wil iets bewerken? (y/n)");
+                    var yesOrNo = Console.ReadLine();
+                    if (yesOrNo == "y")
+                    {
+                        Console.Clear();
+                        Console.WriteLine(ProfileToString(classTypeOut));
+                        EditPatient(classTypeOut.GetId());
+                    }
+                    else 
+                    { 
+                      BeepNoise();
+                      goto Menu;
+                    }
                 }
-            }
-            else if (keuze == "2") 
-            { 
-
+                else 
+                {
+                    BeepNoise();
+                    goto Menu;
+                }
             }
             else
             {
-                return;
+                BeepNoise();
+                goto Menu;
             }
 
         }
@@ -63,11 +114,11 @@ namespace ZorgAppOop
 
             foreach (Profile classType in profileList.profileList)
             {
-                if (classType.VoorNaam == searchValue || 
-                    classType.AchterNaam == searchValue || 
-                    classType.Leeftijd.ToString() == searchValue ||
-                    classType.Gewicht.ToString() == searchValue ||
-                    classType.Lengte.ToString() == searchValue) 
+                if (classType.GetVoornaam() == searchValue || 
+                    classType.GetAchternaam() == searchValue || 
+                    classType.GetLeeftijd().ToString() == searchValue ||
+                    classType.GetGewicht().ToString() == searchValue ||
+                    classType.GetLengte().ToString() == searchValue) 
                 {
                   classTypeOut = classType;
                   return true;
@@ -80,8 +131,14 @@ namespace ZorgAppOop
         //return de waardes van gevonden profiel zien in een string
         public string ProfileToString(Profile profile) 
         {
-            return $"Voornaam: {profile.VoorNaam}\nAchternaam: {profile.AchterNaam}\nLeeftijd: {profile.Leeftijd}\nGewicht {profile.Gewicht}\nLengte: {profile.Lengte}";
+            return $"1) Voornaam: {profile.GetVoornaam()}\n2) Achternaam: {profile.GetAchternaam()}\n3) Leeftijd: {profile.GetLeeftijd()}\n4) Gewicht {profile.GetGewicht()}\n5) Lengte: {profile.GetLengte()}";
 
+        }
+
+        public void BeepNoise()
+        {
+            Console.Beep();
+            Console.Beep();
         }
        
     }
