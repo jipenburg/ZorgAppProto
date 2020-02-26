@@ -12,6 +12,11 @@ namespace ZorgAppOop
         private string soort;
         private string dosering;
 
+        Medicijn()
+        {
+
+        }
+
         public Medicijn(int medicijnId, string medicijnNaam, string omschrijving, string soort, string dosering)
         {
             SetMedicijnId(medicijnId);
@@ -19,10 +24,6 @@ namespace ZorgAppOop
             SetOmschrijving(omschrijving);
             SetSoort(soort);
             SetDosering(dosering);
-
-        }
-        Medicijn()
-        {
 
         }
 
@@ -42,6 +43,7 @@ namespace ZorgAppOop
         public void SetDosering(string dosering) { this.dosering = dosering; }
         public string GetDosering() { return this.dosering; }
 
+        
 
 
 
