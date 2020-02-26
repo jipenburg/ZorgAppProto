@@ -9,6 +9,7 @@ namespace ZorgAppOop
     {
         //variabels
         private ProfileList profileList;
+        private List<Medicijn> medicijnLijst;
         
 
         //constructor. voert automatisch uit na aanroep met "new ZorgApp()".
