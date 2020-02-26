@@ -9,13 +9,14 @@ namespace ZorgAppOop
     {
         //variabels
         private ProfileList profileList;
-        private List<Medicijn> medicijnLijst;
+        private MedicijnLijst medicijnLijst;
         
 
         //constructor. voert automatisch uit na aanroep met "new ZorgApp()".
         public ZorgApp()
         {
             profileList = new ProfileList();
+            medicijnLijst = new MedicijnLijst();
             DisplayMenu();
 
         }
@@ -132,9 +133,24 @@ namespace ZorgAppOop
         //return de waardes van gevonden profiel zien in een string
         public string ProfileToString(Profile profile) 
         {
-            return $"1) Voornaam: {profile.GetVoornaam()}\n2) Achternaam: {profile.GetAchternaam()}\n3) Leeftijd: {profile.GetLeeftijd()}\n4) Gewicht {profile.GetGewicht()}\n5) Lengte: {profile.GetLengte()}";
+            string profileData = $"1) Voornaam: {profile.GetVoornaam()}\n2) Achternaam: {profile.GetAchternaam()}\n3) Leeftijd: {profile.GetLeeftijd()}\n4) Gewicht {profile.GetGewicht()}\n5) Lengte: {profile.GetLengte()}";
+            int[] profileMedicijnIdArray = profile.GetMedicijnId();
+            string medicijnData = string.Empty;
+            foreach (int profileMedicijnId in profileMedicijnIdArray)
+	        {
+                //object van class MedicijnLijst medicijnLijst
+                //List<Medicijn> medicijnLijst
+                int medicijnIndex = medicijnLijst.medicijnLijst.FindIndex(objectMedicijn => objectMedicijn.GetMedicijnId() == profileMedicijnId);
+                Medicijn medicijn = medicijnLijst.medicijnLijst[medicijnIndex];
+                medicijnData += $"\n\n{medicijn.GetMedicijnNaam()}\n{medicijn.GetOmschrijving()}\n{medicijn.GetSoort()}\n{medicijn.GetDosering()}";
+
+            }
+            
+            return profileData + medicijnData;
 
         }
+
+
 
         public void BeepNoise()
         {
