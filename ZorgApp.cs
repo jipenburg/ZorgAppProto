@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Threading;
 
 namespace ZorgAppOop
 {
@@ -10,15 +10,16 @@ namespace ZorgAppOop
         //variabels
         private ProfileList profileList;
         private MedicijnLijst medicijnLijst;
-        
+        private Timer timer;
 
         //constructor. voert automatisch uit na aanroep met "new ZorgApp()".
         public ZorgApp()
         {
             profileList = new ProfileList();
             medicijnLijst = new MedicijnLijst();
+            timer = new Timer(new TimerCallback(Alarm));
+            timer.Change(1000, 0);
             DisplayMenu();
-
         }
         
         //methods
@@ -63,10 +64,13 @@ namespace ZorgAppOop
 
         public void DisplayMenu()
         {
+            
             Menu:
             Console.Clear();
             Console.WriteLine("Welkom in het menu");
+            Console.WriteLine($"Het is vandaag: {DateTime.Now}\n");
             Console.WriteLine($"Maak een keuze: \n1)Zoeken en bewerken patientgegevens.");
+            Alarm(DateTime.Now.AddSeconds(10));
             var choice = Console.ReadLine();
             if (choice == "1")
             {
@@ -133,9 +137,9 @@ namespace ZorgAppOop
         //return de waardes van gevonden profiel zien in een string
         public string ProfileToString(Profile profile) 
         {
-            string profileData = $"1) Voornaam: {profile.GetVoornaam()}\n2) Achternaam: {profile.GetAchternaam()}\n3) Leeftijd: {profile.GetLeeftijd()}\n4) Gewicht {profile.GetGewicht()}\n5) Lengte: {profile.GetLengte()}";
-            int[] profileMedicijnIdArray = profile.GetMedicijnId();
-            string medicijnData = string.Empty;
+            string profileData = $"1) Voornaam: {profile.GetVoornaam()}\n2) Achternaam: {profile.GetAchternaam()}\n3) Leeftijd: {profile.GetLeeftijd()}\n4) Gewicht {profile.GetGewicht()}\n5) Lengte: {profile.GetLengte()}";             
+            int[] profileMedicijnIdArray = profile.GetMedicijnId();//GetMedicijnIdArray van de gezochte profile
+            string medicijnData = string.Empty;//local var die leeg is
             foreach (int profileMedicijnId in profileMedicijnIdArray)
 	        {
                 //object van class MedicijnLijst medicijnLijst
@@ -151,12 +155,21 @@ namespace ZorgAppOop
         }
 
 
-
+        //beeps by joel (c)
         public void BeepNoise()
         {
             Console.Beep();
             Console.Beep();
         }
-       
+
+        public void Alarm(object state) 
+        { 
+            if (DateTime.Compare(DateTime.Now, DateTime.Now.AddSeconds(10)) > 0) 
+            {
+                Console.WriteLine("Het is tijd om uw medicijn {medicijnNaam} in te nemen.");
+                Timer t = (Timer)state;
+                t.Dispose();
+            }
+        }
     }
 }

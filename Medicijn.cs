@@ -14,7 +14,7 @@ namespace ZorgAppOop
 
         Medicijn()
         {
-
+           
         }
 
         public Medicijn(int medicijnId, string medicijnNaam, string omschrijving, string soort, string dosering)

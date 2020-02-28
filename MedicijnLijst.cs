@@ -14,6 +14,7 @@ namespace ZorgAppOop
             //maakt de lijst wakker(initiateert) in property medicijnLijst:
             medicijnLijst = new List<Medicijn>();
             //vult property medicijn lijst in:
+            //new Medicijn(medicijnId, medicijnNaam, omschrijving, soort, dosering.)
             medicijnLijst.Add(new Medicijn(1, "Paracetemol",
                 "Paracetamol is een veelgebruikt pijnstillend en koortsverlagend middel.", 
                 "n.v.t.", 
